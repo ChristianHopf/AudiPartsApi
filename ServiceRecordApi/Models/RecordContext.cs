@@ -6,6 +6,6 @@ namespace ServiceRecordApi.Models
     {
         public RecordContext(DbContextOptions<RecordContext> options) : base(options) { }
 
-        public DbSet<Record> Records { get; set; } = null!;
+        public DbSet<Record> Records { get; set; }
     }
 }

@@ -1,8 +1,7 @@
 ﻿namespace ServiceRecordApi.Models
 {
-    public class Record
+    public class UpdateRecordDTO
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
         public string? Owner { get; set; } // Owner name
         public DateTime Date { get; set; } // Date of service
         public string? Make { get; set; } // Audi, Volkswagen, etc
