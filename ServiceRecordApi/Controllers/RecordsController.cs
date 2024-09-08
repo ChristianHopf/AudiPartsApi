@@ -33,8 +33,23 @@ namespace RecordsApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Record>> CreateRecord(Record record)
+        public async Task<ActionResult<Record>> CreateRecord(CreateRecordDTO createRecordDTO)
         {
+            var id = Guid.NewGuid();
+            var record = new Record
+            {
+                Id = id,
+                Owner = createRecordDTO.Owner,
+                Date = createRecordDTO.Date,
+                Make = createRecordDTO.Make,
+                Model = createRecordDTO.Model,
+                Year = createRecordDTO.Year,
+                VIN = createRecordDTO.VIN,
+                License = createRecordDTO.License,
+                Mileage = createRecordDTO.Mileage,
+                Service = createRecordDTO.Service,
+                Charge = createRecordDTO.Charge
+            };
             _context.Records.Add(record);
             await _context.SaveChangesAsync();
 
@@ -42,12 +57,12 @@ namespace RecordsApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRecord(Guid id, Record record)
+        public async Task<IActionResult> PutRecord(Guid id, UpdateRecordDTO updateRecordDTO)
         {
-            if (id != record.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != record.Id)
+            //{
+            //    return BadRequest();
+            //}
 
             var foundRecord = await _context.Records.FindAsync(id);
             if (foundRecord == null)
@@ -55,16 +70,16 @@ namespace RecordsApi.Controllers
                 return NotFound();
             }
 
-            foundRecord.Owner = record.Owner;
-            foundRecord.Date = DateTime.Now;
-            foundRecord.Make = record.Make;
-            foundRecord.Model = record.Model;
-            foundRecord.Year = record.Year;
-            foundRecord.VIN = record.VIN;
-            foundRecord.License = record.License;
-            foundRecord.Mileage = record.Mileage;
-            foundRecord.Service = record.Service;
-            foundRecord.Charge = record.Charge;
+            foundRecord.Owner = updateRecordDTO.Owner;
+            foundRecord.Date = updateRecordDTO.Date;
+            foundRecord.Make = updateRecordDTO.Make;
+            foundRecord.Model = updateRecordDTO.Model;
+            foundRecord.Year = updateRecordDTO.Year;
+            foundRecord.VIN = updateRecordDTO.VIN;
+            foundRecord.License = updateRecordDTO.License;
+            foundRecord.Mileage = updateRecordDTO.Mileage;
+            foundRecord.Service = updateRecordDTO.Service;
+            foundRecord.Charge = updateRecordDTO.Charge;
 
             await _context.SaveChangesAsync();
             return NoContent();
@@ -84,5 +99,24 @@ namespace RecordsApi.Controllers
 
             return NoContent();
         }
+
+        //private Record CreateRecordDTOToRecord(CreateRecordDTO createRecordDTO)
+        //{
+        //    Guid id = Guid.NewGuid();
+        //    var record = new Record(
+        //        id,
+        //        createRecordDTO.Owner,
+        //        createRecordDTO.Date,
+        //        createRecordDTO.Make,
+        //        createRecordDTO.Model,
+        //        createRecordDTO.Year,
+        //        createRecordDTO.VIN,
+        //            createRecordDTO.License,
+        //            createRecordDTO.Mileage,
+        //            createRecordDTO.Service,
+        //            createRecordDTO.Charge
+        //        );
+        //    return record;
+        //}
     }
 }
