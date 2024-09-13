@@ -23,11 +23,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-if (app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/error-dev");
-}
-else
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/error");
 }
