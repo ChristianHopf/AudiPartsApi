@@ -11,6 +11,6 @@
         public string? License { get; set; } // License plate number
         public int Mileage { get; set; } // Mileage at time of service
         public string? Service { get; set; } // Description of service performed
-        public float Charge { get; set; } // Amount owed for this service
+        public double Charge { get; set; } // Amount owed for this service
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceRecordApi.Models;
+using ServiceRecordApi.Repositories;
 
 namespace RecordsApi.Controllers
 {
@@ -9,23 +10,23 @@ namespace RecordsApi.Controllers
     [ApiController]
     public class RecordsController : ControllerBase
     {
-        private readonly RecordContext _context;
-        public RecordsController(RecordContext context)
+        private readonly IRecordRepository _repository;
+        public RecordsController(IRecordRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Record>>> GetRecords()
         {
-            return await _context.Records.ToListAsync();
+            return await _repository.GetRecords();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Record>> GetRecord(Guid id)
         {
 
-            var record = await _context.Records.FindAsync(id);
+            var record = await _repository.GetRecord(id);
             if (record == null)
             {
                 return NotFound();
@@ -51,8 +52,7 @@ namespace RecordsApi.Controllers
                 Service = createRecordDTO.Service,
                 Charge = createRecordDTO.Charge
             };
-            _context.Records.Add(record);
-            await _context.SaveChangesAsync();
+            var createdRecord = await _repository.CreateRecordAsync(record);
 
             return CreatedAtAction(nameof(GetRecord), new { id = record.Id }, record);
         }
@@ -64,39 +64,22 @@ namespace RecordsApi.Controllers
             //{
             //    return BadRequest();
             //}
-
-            var foundRecord = await _context.Records.FindAsync(id);
-            if (foundRecord == null)
+            var updatedRecord = await _repository.UpdateRecord(id, updateRecordDTO);
+            if (updatedRecord == null)
             {
                 return NotFound();
             }
-
-            foundRecord.Owner = updateRecordDTO.Owner;
-            foundRecord.Date = updateRecordDTO.Date;
-            foundRecord.Make = updateRecordDTO.Make;
-            foundRecord.Model = updateRecordDTO.Model;
-            foundRecord.Year = updateRecordDTO.Year;
-            foundRecord.VIN = updateRecordDTO.VIN;
-            foundRecord.License = updateRecordDTO.License;
-            foundRecord.Mileage = updateRecordDTO.Mileage;
-            foundRecord.Service = updateRecordDTO.Service;
-            foundRecord.Charge = updateRecordDTO.Charge;
-
-            await _context.SaveChangesAsync();
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecord(Guid id)
         {
-            var foundRecord = await _context.Records.FindAsync(id);
-            if (foundRecord == null)
+            var deletedRecord = await _repository.DeleteRecord(id);
+            if (deletedRecord == null)
             {
                 return NotFound();
             }
-
-            _context.Records.Remove(foundRecord);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }

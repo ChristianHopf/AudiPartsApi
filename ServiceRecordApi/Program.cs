@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ServiceRecordApi.Models;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using ServiceRecordApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<RecordContext>(opt => opt.UseInMemoryDatabase("Records"));
 //builder.Services.AddDbContext<RecordContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IRecordRepository, RecordRepositoryImpl>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

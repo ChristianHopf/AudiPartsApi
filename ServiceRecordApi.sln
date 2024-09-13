@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceRecordApi", "ServiceRecordApi\ServiceRecordApi.csproj", "{F27E7DA6-3D31-4E2A-876E-CBC839A39536}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRecordApiTests", "ServiceRecordApiTests\ServiceRecordApiTests.csproj", "{B4E8070A-F3C9-4556-B3B0-382EA8205E95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F27E7DA6-3D31-4E2A-876E-CBC839A39536}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F27E7DA6-3D31-4E2A-876E-CBC839A39536}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F27E7DA6-3D31-4E2A-876E-CBC839A39536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E8070A-F3C9-4556-B3B0-382EA8205E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E8070A-F3C9-4556-B3B0-382EA8205E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E8070A-F3C9-4556-B3B0-382EA8205E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E8070A-F3C9-4556-B3B0-382EA8205E95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
