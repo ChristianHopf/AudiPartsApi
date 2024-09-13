@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceRecordApi.Models;
 
@@ -99,6 +100,27 @@ namespace RecordsApi.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("Throw")]
+        public IActionResult Throw() => throw new Exception("Sample exception.");
+
+        //[Route("/error-dev")]
+        //public IActionResult HandleErrorDev([FromServices] IHostEnvironment hostEnvironment)
+        //{
+        //    if (!hostEnvironment.IsDevelopment())
+        //    {
+        //        return NotFound();
+        //    }
+        //    var exceptionhandlerFeature = HttpContext.Features.Get<IExceptionHandlerFeature>()!;
+        //    return Problem(
+        //        detail: exceptionhandlerFeature.Error.StackTrace,
+        //        title: exceptionhandlerFeature.Error.Message);
+        //}
+
+        [Route("/error")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public IActionResult HandleError() =>
+            Problem();
 
         //private Record CreateRecordDTOToRecord(CreateRecordDTO createRecordDTO)
         //{
