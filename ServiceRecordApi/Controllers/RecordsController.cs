@@ -11,6 +11,7 @@ namespace RecordsApi.Controllers
     public class RecordsController : ControllerBase
     {
         private readonly IRecordRepository _repository;
+
         public RecordsController(IRecordRepository repository)
         {
             _repository = repository;
@@ -25,7 +26,6 @@ namespace RecordsApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Record>> GetRecord(Guid id)
         {
-
             var record = await _repository.GetRecord(id);
             if (record == null)
             {
@@ -42,7 +42,7 @@ namespace RecordsApi.Controllers
             {
                 Id = id,
                 Owner = createRecordDTO.Owner,
-                Date = createRecordDTO.Date,
+                Date = DateTime.UtcNow,
                 Make = createRecordDTO.Make,
                 Model = createRecordDTO.Model,
                 Year = createRecordDTO.Year,
@@ -50,7 +50,7 @@ namespace RecordsApi.Controllers
                 License = createRecordDTO.License,
                 Mileage = createRecordDTO.Mileage,
                 Service = createRecordDTO.Service,
-                Charge = createRecordDTO.Charge
+                Charge = createRecordDTO.Charge,
             };
             var createdRecord = await _repository.CreateRecordAsync(record);
 
@@ -102,8 +102,7 @@ namespace RecordsApi.Controllers
 
         [Route("/error")]
         [ApiExplorerSettings(IgnoreApi = true)]
-        public IActionResult HandleError() =>
-            Problem();
+        public IActionResult HandleError() => Problem();
 
         //private Record CreateRecordDTOToRecord(CreateRecordDTO createRecordDTO)
         //{

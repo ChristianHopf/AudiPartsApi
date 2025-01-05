@@ -3,7 +3,7 @@
     public class CreateRecordDTO
     {
         public string? Owner { get; set; } // Owner name
-        public DateTime Date { get; set; } // Date of service
+        public DateTime? Date { get; set; } // Date of service
         public string? Make { get; set; } // Audi, Volkswagen, etc
         public string? Model { get; set; } // A4, Atlas, etc
         public int Year { get; set; } // Model year
